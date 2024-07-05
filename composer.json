@@ -1,0 +1,26 @@
+{
+    "name": "andrey/php-intersection",
+    "description": "php intersection lib",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gusev Andrey",
+            "email": "gusevandrey1988@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Lightsaber\\PhpIntersection\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lightsaber\\PhpIntersection\\Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
