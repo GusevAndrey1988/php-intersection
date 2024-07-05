@@ -43,6 +43,19 @@ class Vector2DTest extends TestCase
         self::assertEquals(new Vector2D(0, 0), $vec1->mul(0));
     }
 
+    public function testDiv(): void
+    {
+        $vec1 = new Vector2D(1, 2);
+        self::assertEquals(new Vector2D(0.5, 1), $vec1->div(2));
+    }
+
+    public function testDivByZero(): void
+    {
+        $vec1 = new Vector2D(1, 2);
+        $this->expectException(\DivisionByZeroError::class);
+        $vec1->div(0);
+    }
+
     public function testSquareLength(): void
     {
         $vector = new Vector2D(3, 4);
