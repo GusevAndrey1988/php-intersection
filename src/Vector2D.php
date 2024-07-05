@@ -30,6 +30,11 @@ class Vector2D
         return new Vector2D($this->x - $vector->x(), $this->y - $vector->y());
     }
 
+    public function length(): float
+    {
+        return sqrt(pow($this->x, 2) + pow($this->y, 2));
+    }
+
     public function __toString(): string
     {
         return sprintf('(%s, %s)', $this->x, $this->y);
