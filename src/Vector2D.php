@@ -25,6 +25,11 @@ class Vector2D
         return new Vector2D($this->x + $vector->x(), $this->y + $vector->y());
     }
 
+    public function sub(Vector2D $vector): Vector2D
+    {
+        return new Vector2D($this->x - $vector->x(), $this->y - $vector->y());
+    }
+
     public function __toString(): string
     {
         return sprintf('(%s, %s)', $this->x, $this->y);
