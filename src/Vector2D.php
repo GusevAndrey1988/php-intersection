@@ -30,6 +30,11 @@ class Vector2D
         return new Vector2D($this->x - $vector->x(), $this->y - $vector->y());
     }
 
+    public function mul(float $number): Vector2D
+    {
+        return new Vector2D($this->x * $number, $this->y * $number);
+    }
+
     public function squareLength(): float
     {
         return pow($this->x, 2) + pow($this->y, 2);
