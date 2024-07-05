@@ -31,6 +31,15 @@ class Vector2DTest extends TestCase
         self::assertEquals(new Vector2D(-2, -2), $vec1->sub($vec2));
     }
 
+    public function testSquareLength(): void
+    {
+        $vector = new Vector2D(3, 4);
+        self::assertEquals(25, $vector->squareLength());
+
+        $vector = new Vector2D(0, 0);
+        self::assertEquals(0, $vector->squareLength());
+    }
+
     public function testLength(): void
     {
         $vector = new Vector2D(3, 4);
