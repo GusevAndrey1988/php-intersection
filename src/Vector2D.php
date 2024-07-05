@@ -35,6 +35,11 @@ class Vector2D
         return sqrt(pow($this->x, 2) + pow($this->y, 2));
     }
 
+    public function dotProduct(Vector2D $vector): float
+    {
+        return $this->x * $vector->x() + $this->y * $vector->y();
+    }
+
     public function __toString(): string
     {
         return sprintf('(%s, %s)', $this->x, $this->y);
