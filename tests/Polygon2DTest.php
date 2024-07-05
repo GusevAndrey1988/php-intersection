@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Polygon2D::class)]
 class Polygon2DTest extends TestCase
 {
-    public function testVector2DToString(): void
+    public function testToString(): void
     {
         $polygon = new Polygon2D([
             new Vector2D(1, 2),

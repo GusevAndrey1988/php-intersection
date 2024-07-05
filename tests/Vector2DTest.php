@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Vector2D::class)]
 class Vector2DTest extends TestCase
 {
-    public function testVector2DToString(): void
+    public function testToString(): void
     {
         $vector = new Vector2D(1, 2);
         self::assertEquals('(1, 2)', (string)$vector);
