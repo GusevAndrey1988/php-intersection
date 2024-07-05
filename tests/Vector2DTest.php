@@ -16,4 +16,11 @@ class Vector2DTest extends TestCase
         $vector = new Vector2D(1, 2);
         self::assertEquals('(1, 2)', (string)$vector);
     }
+
+    public function testSum(): void
+    {
+        $vec1 = new Vector2D(1, 2);
+        $vec2 = new Vector2D(3, 4);
+        self::assertEquals(new Vector2D(4, 6), $vec1->sum($vec2));
+    }
 }
