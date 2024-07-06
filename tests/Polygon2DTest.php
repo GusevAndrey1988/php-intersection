@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lightsaber\PhpIntersection\Tests;
 
+use Lightsaber\PhpIntersection\Epsilon;
 use Lightsaber\PhpIntersection\Polygon2D;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -31,5 +32,62 @@ class Polygon2DTest extends TestCase
         ];
         $polygon = Polygon2D::fromArray($points);
         self::assertEquals($points, $polygon->toArray());
+    }
+
+    public function testFindClosestPoint(): void
+    {
+        $polygon = Polygon2D::fromArray([
+            [0, 0],
+            [1, 3],
+            [4, 4],
+            [6, 2],
+            [5, -1],
+        ]);
+
+        $epsilon = new Epsilon(0.0000000001);
+
+        $point1 = $polygon->findClosestPoint(new Vector2D(2, 2));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(0.8, 2.4),
+            $point1,
+            $epsilon
+        ));
+
+        $point2 = $polygon->findClosestPoint(new Vector2D(3, 0));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(2.88461538462, -0.576923076923),
+            $point2,
+            $epsilon
+        ));
+
+        $point3 = $polygon->findClosestPoint(new Vector2D(6, 1));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(5.7, 1.1),
+            $point3,
+            $epsilon
+        ));
+
+        $point4 = $polygon->findClosestPoint(new Vector2D(6, -2));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(5, -1),
+            $point4,
+            $epsilon
+        ));
+
+        $point5 = $polygon->findClosestPoint(new Vector2D(5, 3));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(5, 3),
+            $point5,
+            $epsilon
+        ));
+    }
+
+    private function vectorEqualsWithEpsilon(
+        Vector2D $a,
+        Vector2D $b,
+        Epsilon $epsilon
+    ): bool {
+        return $epsilon->equal($a->x(), $b->x())
+            && $epsilon->equal($a->y(), $b->y());
     }
 }

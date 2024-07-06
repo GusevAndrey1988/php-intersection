@@ -32,6 +32,28 @@ class Polygon2D
         return $this->points;
     }
 
+    public function findClosestPoint(Vector2D $point): Vector2D
+    {
+        $closest = $this->points[0];
+
+        $findeClosest = fn (Vector2D $point, Vector2D $a, Vector2D $b)
+            => $point->distance($a) < $point->distance($b) ? $a : $b;
+
+        for ($index = 1; $index < count($this->points); $index++) {
+            $a = $this->points[$index - 1];
+            $b = $this->points[$index];
+            $closestPointOnLine = Math2D::closestPointOnLine($point, $a, $b);
+            $closest = $findeClosest($point, $closestPointOnLine, $closest);
+        }
+
+        $a = $this->points[count($this->points) - 1];
+        $b = $this->points[0];
+        $closestPointOnLine = Math2D::closestPointOnLine($point, $a, $b);
+        $closest = $findeClosest($point, $closestPointOnLine, $closest);
+
+        return $closest;
+    }
+
     /**
      * @return array<array{0: float, 1: float}>
      */
