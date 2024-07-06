@@ -6,6 +6,9 @@ namespace Lightsaber\PhpIntersection;
 
 class Polygon2D
 {
+    /**
+     * @param array<array{0: float, 1: float}> $points
+     */
     public static function fromArray(array $points): Polygon2D
     {
         return new Polygon2D(array_map(
@@ -29,6 +32,9 @@ class Polygon2D
         return $this->points;
     }
 
+    /**
+     * @return array<array{0: float, 1: float}>
+     */
     public function toArray(): array
     {
         return array_map(
