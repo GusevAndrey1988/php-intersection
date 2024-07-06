@@ -21,13 +21,30 @@ class Math2DTest extends TestCase
 
     public function testClosestPointOnLine(): void
     {
-        //TODO: add more test cases
         $this->assertEquals(
             new Vector2D(0.5, 0.0),
             Math2D::closestPointOnLine(
                 new Vector2D(0.5, 0.5),
                 new Vector2D(0.0, 0.0),
                 new Vector2D(1.0, 0.0)
+            )
+        );
+
+        $this->assertEquals(
+            new Vector2D(0.5, 0.5),
+            Math2D::closestPointOnLine(
+                new Vector2D(0.5, 0.5),
+                new Vector2D(0.0, 0.0),
+                new Vector2D(1.0, 1.0),
+            )
+        );
+
+        $this->assertEquals(
+            new Vector2D(0.125, 0.875),
+            Math2D::closestPointOnLine(
+                new Vector2D(0.25, 1.0),
+                new Vector2D(0.0, 1.0),
+                new Vector2D(1.0, 0.0),
             )
         );
     }
