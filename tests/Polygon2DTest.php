@@ -21,4 +21,15 @@ class Polygon2DTest extends TestCase
         ]);
         self::assertEquals('[(1, 2),(3, 4),(5, 6)]', (string)$polygon);
     }
+
+    public function testFromArray(): void
+    {
+        $points = [
+            [1, 2],
+            [3, 4],
+            [5, 6]
+        ];
+        $polygon = Polygon2D::fromArray($points);
+        self::assertEquals($points, $polygon->toArray());
+    }
 }
