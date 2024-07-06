@@ -88,4 +88,19 @@ class Vector2DTest extends TestCase
         $vec2 = new Vector2D(0, 0);
         self::assertEquals(0, $vec1->dotProduct($vec2));
     }
+
+    public function testDistance(): void
+    {
+        $vec1 = new Vector2D(0, 0);
+        $vec2 = new Vector2D(3, 4);
+        self::assertEquals(5, $vec1->distance($vec2));
+
+        $vec1 = new Vector2D(0, 0);
+        $vec2 = new Vector2D(0, 0);
+        self::assertEquals(0, $vec1->distance($vec2));
+
+        $vec1 = new Vector2D(1, 4);
+        $vec2 = new Vector2D(2, 3);
+        self::assertEquals(sqrt(2), $vec1->distance($vec2));
+    }
 }

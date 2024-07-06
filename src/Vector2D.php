@@ -55,6 +55,11 @@ class Vector2D
         return $this->x * $vector->x() + $this->y * $vector->y();
     }
 
+    public function distance(Vector2D $vector): float
+    {
+        return $this->sub($vector)->length();
+    }
+
     public function __toString(): string
     {
         return sprintf('(%s, %s)', $this->x, $this->y);
