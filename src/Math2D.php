@@ -10,8 +10,7 @@ class Math2D
         Vector2D $point,
         Vector2D $start,
         Vector2D $end
-    ): Vector2D
-    {
+    ): Vector2D {
         $a = $end->sub($start);
         $b = $point->sub($start);
         $c = $b->dotProduct($a) / $a->squareLength();

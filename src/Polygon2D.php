@@ -8,7 +8,7 @@ class Polygon2D
 {
     /**
      * @param Vector2D[] $points
-     */ 
+     */
     public function __construct(private array $points)
     {
     }
