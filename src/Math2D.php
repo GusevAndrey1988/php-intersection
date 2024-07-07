@@ -6,6 +6,8 @@ namespace Lightsaber\PhpIntersection;
 
 class Math2D
 {
+    public const DEFAULT_EPSILON = 0.0000000001;
+
     public static function closestPointOnLine(
         Vector2D $point,
         Vector2D $start,

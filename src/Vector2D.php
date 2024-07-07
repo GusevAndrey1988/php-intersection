@@ -60,6 +60,19 @@ class Vector2D
         return $this->sub($vector)->length();
     }
 
+    /**
+     * @throws \Exception if length is 0
+     */
+    public function normalize(
+        Epsilon $epsilon = new Epsilon(Math2D::DEFAULT_EPSILON)
+    ): Vector2D {
+        $length = $this->length();
+        if ($epsilon->equal(0, $length)) {
+            throw new \Exception('Vector length is 0'); 
+        }
+        return $this->div($length);
+    }
+
     public function __toString(): string
     {
         return sprintf('(%s, %s)', $this->x, $this->y);
