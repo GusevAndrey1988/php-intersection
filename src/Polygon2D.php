@@ -55,6 +55,31 @@ class Polygon2D
     }
 
     /**
+     * @return Vector2D[]
+     */
+    public function edgeNormals(
+        Epsilon $epsilon = new Epsilon(Math2D::DEFAULT_EPSILON)
+    ): array {
+        /** @var Vector2D[] */
+        $normals = [];
+
+        for ($intex = 1; $intex < count($this->points); $intex++) {
+            $v = $this->points[$intex - 1];
+            $w = $this->points[$intex];
+
+            $normals[] = Math2D::edgeNormal($v, $w, $epsilon);
+        }
+
+        $normals[] = Math2D::edgeNormal(
+            $this->points[count($this->points) - 1],
+            $this->points[0],
+            $epsilon
+        );
+
+        return $normals;
+    }
+
+    /**
      * @return array<array{0: float, 1: float}>
      */
     public function toArray(): array

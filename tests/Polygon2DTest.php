@@ -82,6 +82,33 @@ class Polygon2DTest extends TestCase
         ));
     }
 
+    public function testEdgeNormals(): void
+    {
+        $polygon = Polygon2D::fromArray([
+            [1, 0],
+            [-3, 1],
+            [-4, 2],
+            [-1, 3],
+            [0, 1],
+        ]);
+
+        $expectedNormals = [
+            [-0.24253562503633297, -0.9701425001453319],
+            [-0.7071067811865475, -0.7071067811865475],
+            [-0.31622776601683794, 0.9486832980505138],
+            [0.8944271909999159, 0.4472135954999579],
+            [0.7071067811865475, 0.7071067811865475],
+        ];
+
+        $this->assertEquals(
+            $expectedNormals,
+            array_map(
+                fn (Vector2D $vector) => [$vector->x(), $vector->y()],
+                $polygon->edgeNormals()
+            )
+        );
+    }
+
     private function vectorEqualsWithEpsilon(
         Vector2D $a,
         Vector2D $b,
