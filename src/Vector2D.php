@@ -68,7 +68,7 @@ class Vector2D
     ): Vector2D {
         $length = $this->length();
         if ($epsilon->equal(0, $length)) {
-            throw new \Exception('Vector length is 0'); 
+            throw new \Exception('Vector length is 0');
         }
         return $this->div($length);
     }
