@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lightsaber\PhpIntersection\Tests;
 
+use Lightsaber\PhpIntersection\Epsilon;
 use Lightsaber\PhpIntersection\Math2D;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -46,6 +47,42 @@ class Math2DTest extends TestCase
                 new Vector2D(0.0, 1.0),
                 new Vector2D(1.0, 0.0),
             )
+        );
+    }
+
+    public function testEdgeNormal(): void
+    {
+        $this->assertEquals(
+            new Vector2D(1 / M_SQRT2, 1 / M_SQRT2),
+            Math2D::edgeNormal(
+                new Vector2D(0.0, 1.0),
+                new Vector2D(1.0, 0.0),
+            )
+        );
+
+        $this->assertEquals(
+            new Vector2D(-1 / M_SQRT2, -1 / M_SQRT2),
+            Math2D::edgeNormal(
+                new Vector2D(1.0, 0.0),
+                new Vector2D(0.0, 1.0),
+            )
+        );
+
+        $epsilon = new Epsilon(0.0000000001);
+        $normal = Math2D::edgeNormal(
+            new Vector2D(1.0, -2.0),
+            new Vector2D(-3.0, -1.0),
+        );
+        $this->assertTrue($epsilon->equal(-0.242535625036, $normal->x()));
+        $this->assertTrue($epsilon->equal(-0.970142500145, $normal->y()));
+    }
+
+    public function testEdgeNormalWhenZeroLength(): void
+    {
+        $this->expectException(\Exception::class);
+        Math2D::edgeNormal(
+            new Vector2D(0.0, 0.0),
+            new Vector2D(0.0, 0.0),
         );
     }
 }
