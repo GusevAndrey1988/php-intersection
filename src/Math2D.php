@@ -16,7 +16,7 @@ class Math2D
         $a = $end->sub($start);
         $b = $point->sub($start);
         $c = $b->dotProduct($a) / $a->squareLength();
-        $c = self::clamp($c, 0, 1);
+        $c = self::clamp($c, 0.0, 1.0);
 
         return $start->sum($a->mul($c));
     }
