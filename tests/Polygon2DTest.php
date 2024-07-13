@@ -16,9 +16,9 @@ class Polygon2DTest extends TestCase
     public function testToString(): void
     {
         $polygon = new Polygon2D([
-            new Vector2D(1, 2),
-            new Vector2D(3, 4),
-            new Vector2D(5, 6)
+            new Vector2D(1.0, 2.0),
+            new Vector2D(3.0, 4.0),
+            new Vector2D(5.0, 6.0)
         ]);
         self::assertEquals('[(1, 2),(3, 4),(5, 6)]', (string)$polygon);
     }
@@ -46,37 +46,37 @@ class Polygon2DTest extends TestCase
 
         $epsilon = new Epsilon(0.0000000001);
 
-        $point1 = $polygon->findClosestPoint(new Vector2D(2, 2));
+        $point1 = $polygon->findClosestPoint(new Vector2D(2.0, 2.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(0.8, 2.4),
             $point1,
             $epsilon
         ));
 
-        $point2 = $polygon->findClosestPoint(new Vector2D(3, 0));
+        $point2 = $polygon->findClosestPoint(new Vector2D(3.0, 0.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(2.88461538462, -0.576923076923),
             $point2,
             $epsilon
         ));
 
-        $point3 = $polygon->findClosestPoint(new Vector2D(6, 1));
+        $point3 = $polygon->findClosestPoint(new Vector2D(6.0, 1.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(5.7, 1.1),
             $point3,
             $epsilon
         ));
 
-        $point4 = $polygon->findClosestPoint(new Vector2D(6, -2));
+        $point4 = $polygon->findClosestPoint(new Vector2D(6.0, -2.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
-            new Vector2D(5, -1),
+            new Vector2D(5.0, -1.0),
             $point4,
             $epsilon
         ));
 
-        $point5 = $polygon->findClosestPoint(new Vector2D(5, 3));
+        $point5 = $polygon->findClosestPoint(new Vector2D(5., 3.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
-            new Vector2D(5, 3),
+            new Vector2D(5.0, 3.0),
             $point5,
             $epsilon
         ));
