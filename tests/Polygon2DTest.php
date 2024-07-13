@@ -109,6 +109,24 @@ class Polygon2DTest extends TestCase
         );
     }
 
+    public function testVertexNormals(): void
+    {
+        $edgesNormals = [
+            new Vector2D(0.0, 1.0),
+            new Vector2D(1.0, 0.0),
+            new Vector2D(-0.7071067811865475, -0.7071067811865475),
+        ];
+
+        $this->assertEquals(
+            [
+                new Vector2D(-0.9238795325112867, 0.3826834323650899),
+                new Vector2D(0.7071067811865475, 0.7071067811865475),
+                new Vector2D(0.3826834323650899, -0.9238795325112867),
+            ],
+            Polygon2D::verticesNormals($edgesNormals)
+        );
+    }
+
     private function vectorEqualsWithEpsilon(
         Vector2D $a,
         Vector2D $b,

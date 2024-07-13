@@ -80,6 +80,28 @@ class Polygon2D
     }
 
     /**
+     * @param Vector2D[] $edgesNormals
+     * @return Vector2D[]
+     */
+    public static function verticesNormals(array $edgesNormals): array
+    {
+        $verticesNormals = [];
+        for ($idx = 1; $idx < count($edgesNormals); $idx++) {
+            $edge1Normal = $edgesNormals[$idx - 1];
+            $edge2Normal = $edgesNormals[$idx];
+            $verticesNormals[$idx]
+                = $edge1Normal->sum($edge2Normal)->normalize();
+        }
+
+        $verticesNormals[0]
+            = $edgesNormals[count($edgesNormals) - 1]
+                ->sum($edgesNormals[0])
+                ->normalize();
+
+        return $verticesNormals;
+    }
+
+    /**
      * @return array<array{0: float, 1: float}>
      */
     public function toArray(): array
