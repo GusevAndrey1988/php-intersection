@@ -32,26 +32,63 @@ class Polygon2D
         return $this->points;
     }
 
-    public function findClosestPoint(Vector2D $point): Vector2D
-    {
-        $closest = $this->points[0];
+    public function findClosestPoint(
+        Vector2D $point
+    ): Polygon2DClosestPointResult {
+        $closest = new Line2DClosestPointResult(
+            $this->points[0],
+            Line2DClosestPointResult::START_VERTEX
+        );
 
-        $findeClosest = fn (Vector2D $point, Vector2D $a, Vector2D $b)
-            => $point->distance($a) < $point->distance($b) ? $a : $b;
+        $findClosest = function (
+            Vector2D $point,
+            Line2DClosestPointResult &$closest,
+            Line2DClosestPointResult $b,
+        ): bool {
+            if ($point->distance($b->point) < $point->distance($closest->point)) {
+                $closest = $b;
+                return true;
+            }
+            return false;
+        };
 
+        $edgeId = null;
+        $vertexId = null;
         for ($index = 1; $index < count($this->points); $index++) {
             $a = $this->points[$index - 1];
             $b = $this->points[$index];
-            $closestPointOnLine = Math2D::closestPointOnLine($point, $a, $b);
-            $closest = $findeClosest($point, $closestPointOnLine, $closest);
+            $closestPointOnLineResult
+                = Math2D::closestPointOnLine($point, $a, $b);
+            if ($findClosest($point, $closest, $closestPointOnLineResult)) {
+                if ($closest->position === Line2DClosestPointResult::EDGE) {
+                    $edgeId = $index - 1;
+                    $vertexId = null;
+                } else {
+                    $edgeId = null;
+
+                    if ($closest->position === Line2DClosestPointResult::START_VERTEX) {
+                        $vertexId = $index - 1;
+                    } else {
+                        $vertexId = $index;
+                    }
+                }
+            }
         }
 
         $a = $this->points[count($this->points) - 1];
         $b = $this->points[0];
         $closestPointOnLine = Math2D::closestPointOnLine($point, $a, $b);
-        $closest = $findeClosest($point, $closestPointOnLine, $closest);
+        if ($findClosest($point, $closest, $closestPointOnLine)) {
+            $edgeId = count($this->points) - 1;
+        }
 
-        return $closest;
+        $closestPointResult = new Polygon2DClosestPointResult(
+            $closest->point,
+            $edgeId,
+            $vertexId
+        );
+
+        return $closestPointResult;
     }
 
     /**

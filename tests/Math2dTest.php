@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lightsaber\PhpIntersection\Tests;
 
 use Lightsaber\PhpIntersection\Epsilon;
+use Lightsaber\PhpIntersection\Line2DClosestPointResult;
 use Lightsaber\PhpIntersection\Math2D;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,7 +24,10 @@ class Math2DTest extends TestCase
     public function testClosestPointOnLine(): void
     {
         $this->assertEquals(
-            new Vector2D(0.5, 0.0),
+            new Line2DClosestPointResult(
+                new Vector2D(0.5, 0.0),
+                Line2DClosestPointResult::EDGE
+            ),
             Math2D::closestPointOnLine(
                 new Vector2D(0.5, 0.5),
                 new Vector2D(0.0, 0.0),
@@ -32,7 +36,10 @@ class Math2DTest extends TestCase
         );
 
         $this->assertEquals(
-            new Vector2D(0.5, 0.5),
+            new Line2DClosestPointResult(
+                new Vector2D(0.5, 0.5),
+                Line2DClosestPointResult::EDGE
+            ),
             Math2D::closestPointOnLine(
                 new Vector2D(0.5, 0.5),
                 new Vector2D(0.0, 0.0),
@@ -41,9 +48,36 @@ class Math2DTest extends TestCase
         );
 
         $this->assertEquals(
-            new Vector2D(0.125, 0.875),
+            new Line2DClosestPointResult(
+                new Vector2D(0.125, 0.875),
+                Line2DClosestPointResult::EDGE
+            ),
             Math2D::closestPointOnLine(
                 new Vector2D(0.25, 1.0),
+                new Vector2D(0.0, 1.0),
+                new Vector2D(1.0, 0.0),
+            )
+        );
+
+        $this->assertEquals(
+            new Line2DClosestPointResult(
+                new Vector2D(1.0, 0.0),
+                Line2DClosestPointResult::END_VERTEX
+            ),
+            Math2D::closestPointOnLine(
+                new Vector2D(2.0, -1.0),
+                new Vector2D(0.0, 1.0),
+                new Vector2D(1.0, 0.0),
+            )
+        );
+
+        $this->assertEquals(
+            new Line2DClosestPointResult(
+                new Vector2D(0.0, 1.0),
+                Line2DClosestPointResult::START_VERTEX
+            ),
+            Math2D::closestPointOnLine(
+                new Vector2D(-1.0, 2.0),
                 new Vector2D(0.0, 1.0),
                 new Vector2D(1.0, 0.0),
             )

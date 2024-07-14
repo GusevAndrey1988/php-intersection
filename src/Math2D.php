@@ -12,13 +12,24 @@ class Math2D
         Vector2D $point,
         Vector2D $start,
         Vector2D $end
-    ): Vector2D {
+    ): Line2DClosestPointResult {
         $a = $end->sub($start);
         $b = $point->sub($start);
         $c = $b->dotProduct($a) / $a->squareLength();
         $c = self::clamp($c, 0.0, 1.0);
 
-        return $start->sum($a->mul($c));
+        $position = Line2DClosestPointResult::EDGE;
+        if ($c === 0.0) {
+            $position = Line2DClosestPointResult::START_VERTEX;
+        }
+        if ($c === 1.0) {
+            $position = Line2DClosestPointResult::END_VERTEX;
+        }
+
+        return new Line2DClosestPointResult(
+            $start->sum($a->mul($c)),
+            $position
+        );
     }
 
     public static function edgeNormal(

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lightsaber\PhpIntersection\Tests;
 
 use Lightsaber\PhpIntersection\Epsilon;
+use Lightsaber\PhpIntersection\Line2DClosestPointResult;
 use Lightsaber\PhpIntersection\Polygon2D;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -49,37 +50,47 @@ class Polygon2DTest extends TestCase
         $point1 = $polygon->findClosestPoint(new Vector2D(2.0, 2.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(0.8, 2.4),
-            $point1,
+            $point1->point,
             $epsilon
         ));
+        self::assertEquals(0, $point1->edgeId);
+        self::assertNull($point1->vertexId);
 
         $point2 = $polygon->findClosestPoint(new Vector2D(3.0, 0.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(2.88461538462, -0.576923076923),
-            $point2,
+            $point2->point,
             $epsilon
         ));
+        self::assertEquals(4, $point2->edgeId);
+        self::assertNull($point2->vertexId);
 
         $point3 = $polygon->findClosestPoint(new Vector2D(6.0, 1.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(5.7, 1.1),
-            $point3,
+            $point3->point,
             $epsilon
         ));
+        self::assertEquals(3, $point3->edgeId);
+        self::assertNull($point3->vertexId);
 
         $point4 = $polygon->findClosestPoint(new Vector2D(6.0, -2.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(5.0, -1.0),
-            $point4,
+            $point4->point,
             $epsilon
         ));
+        self::assertNull($point4->edgeId);
+        self::assertEquals(4, $point4->vertexId);
 
-        $point5 = $polygon->findClosestPoint(new Vector2D(5., 3.0));
+        $point5 = $polygon->findClosestPoint(new Vector2D(5.0, 3.0));
         self::assertTrue($this->vectorEqualsWithEpsilon(
             new Vector2D(5.0, 3.0),
-            $point5,
+            $point5->point,
             $epsilon
         ));
+        self::assertEquals(2, $point5->edgeId);
+        self::assertNull($point5->vertexId);
     }
 
     public function testEdgeNormals(): void
