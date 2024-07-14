@@ -99,6 +99,15 @@ class Polygon2DTest extends TestCase
         ));
         self::assertEquals(2, $point5->edgeId);
         self::assertNull($point5->vertexId);
+
+        $point6 = $polygon->findClosestPoint(new Vector2D(-1.0, -1.0));
+        self::assertTrue($this->vectorEqualsWithEpsilon(
+            new Vector2D(0.0, 0.0),
+            $point6->point,
+            $epsilon
+        ));
+        self::assertNull($point6->edgeId);
+        self::assertEquals(0, $point6->vertexId);
     }
 
     public function testEdgeNormals(): void
@@ -144,6 +153,35 @@ class Polygon2DTest extends TestCase
             ],
             Polygon2D::verticesNormals($edgesNormals)
         );
+    }
+
+    public function testIncludePoint(): void
+    {
+        $polygon = Polygon2D::fromArray([
+            [0, 0],
+            [1, 3],
+            [4, 4],
+            [6, 2],
+            [5, -1],
+        ]);
+
+        $edgeNormals = $polygon->edgeNormals();
+        $verticesNormals = Polygon2D::verticesNormals($edgeNormals);
+
+        $test = fn (Vector2D $point): bool => $polygon->includePoint(
+            $point,
+            $edgeNormals,
+            $verticesNormals
+        );
+
+        $this->assertTrue($test(new Vector2D(2.0, 2.0)));
+        $this->assertTrue($test(new Vector2D(4.0, 0.0)));
+        $this->assertTrue($test(new Vector2D(1.0, 0.9)));
+        $this->assertTrue($test(new Vector2D(5.0, 2.9)));
+
+        $this->assertFalse($test(new Vector2D(-1.0, -1.0)));
+        $this->assertFalse($test(new Vector2D(6.0, 1.0)));
+        $this->assertFalse($test(new Vector2D(2.0, 4.0)));
     }
 
     private function vectorEqualsWithEpsilon(

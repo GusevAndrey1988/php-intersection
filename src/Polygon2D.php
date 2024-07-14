@@ -53,7 +53,7 @@ class Polygon2D
         };
 
         $edgeId = null;
-        $vertexId = null;
+        $vertexId = 0;
         for ($index = 1; $index < count($this->points); $index++) {
             $a = $this->points[$index - 1];
             $b = $this->points[$index];
@@ -93,13 +93,11 @@ class Polygon2D
             }
         }
 
-        $closestPointResult = new Polygon2DClosestPointResult(
+        return new Polygon2DClosestPointResult(
             $closest->point,
             $edgeId,
             $vertexId
         );
-
-        return $closestPointResult;
     }
 
     /**
@@ -147,6 +145,19 @@ class Polygon2D
                 ->normalize();
 
         return $verticesNormals;
+    }
+
+    public function includePoint(
+        Vector2D $point,
+        array $edgesNormals,
+        array $verticesNormals
+    ): bool {
+        $closestPoint = $this->findClosestPoint($point);
+        $closestPointNormal = !is_null($closestPoint->edgeId)
+            ? $edgesNormals[$closestPoint->edgeId]
+            : $verticesNormals[$closestPoint->vertexId];
+        $vector = $closestPoint->point->sub($point);
+        return $closestPointNormal->dotProduct($vector) > 0;
     }
 
     /**
