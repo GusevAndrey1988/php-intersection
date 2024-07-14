@@ -79,7 +79,18 @@ class Polygon2D
         $b = $this->points[0];
         $closestPointOnLine = Math2D::closestPointOnLine($point, $a, $b);
         if ($findClosest($point, $closest, $closestPointOnLine)) {
-            $edgeId = count($this->points) - 1;
+            if ($closest->position === Line2DClosestPointResult::EDGE) {
+                $edgeId = count($this->points) - 1;
+                $vertexId = null;
+            } else {
+                $edgeId = null;
+
+                if ($closest->position === Line2DClosestPointResult::START_VERTEX) {
+                    $vertexId = count($this->points) - 1;
+                } else {
+                    $vertexId = 0;
+                }
+            }
         }
 
         $closestPointResult = new Polygon2DClosestPointResult(
