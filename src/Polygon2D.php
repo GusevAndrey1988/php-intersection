@@ -147,6 +147,10 @@ class Polygon2D
         return $verticesNormals;
     }
 
+    /**
+     * @param Vector2D[] $edgesNormals
+     * @param Vector2D[] $verticesNormals
+     */
     public function includePoint(
         Vector2D $point,
         array $edgesNormals,
