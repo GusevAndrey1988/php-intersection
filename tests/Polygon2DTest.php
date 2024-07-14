@@ -6,12 +6,20 @@ namespace Lightsaber\PhpIntersection\Tests;
 
 use Lightsaber\PhpIntersection\Epsilon;
 use Lightsaber\PhpIntersection\Line2DClosestPointResult;
+use Lightsaber\PhpIntersection\Math2D;
 use Lightsaber\PhpIntersection\Polygon2D;
+use Lightsaber\PhpIntersection\Polygon2DClosestPointResult;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Polygon2D::class)]
+#[UsesClass(Epsilon::class)]
+#[UsesClass(Vector2D::class)]
+#[UsesClass(Math2D::class)]
+#[UsesClass(Line2DClosestPointResult::class)]
+#[UsesClass(Polygon2DClosestPointResult::class)]
 class Polygon2DTest extends TestCase
 {
     public function testToString(): void

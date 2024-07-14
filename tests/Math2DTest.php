@@ -9,9 +9,13 @@ use Lightsaber\PhpIntersection\Line2DClosestPointResult;
 use Lightsaber\PhpIntersection\Math2D;
 use Lightsaber\PhpIntersection\Vector2D;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Math2D::class)]
+#[UsesClass(Epsilon::class)]
+#[UsesClass(Vector2D::class)]
+#[UsesClass(Line2DClosestPointResult::class)]
 class Math2DTest extends TestCase
 {
     public function testClamp(): void
